@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ObjectMapperUtil {
-    // Reuse ObjectMapper - thread-safe after configuration
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     static {
