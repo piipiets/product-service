@@ -29,19 +29,19 @@ public class ProductController {
     }
 
     @GetMapping(path = "/list")
-    public ResponseEntity<DatatableResponse<ProductResponse>> getListProduct(
+    public ResponseEntity<DatatableResponse> getListProduct(
             @RequestParam(defaultValue = "1") @Min(1) int page,
             @RequestParam(defaultValue = "10") @Min(1) int limit,
             @RequestParam(defaultValue = "id", required = false) String sortField,
             @RequestParam(defaultValue = "asc", required = false) String sortOrder
     ){
-        DatatableResponse<ProductResponse> res = productService.getListProduct(page, limit, sortField, sortOrder);
+        DatatableResponse res = productService.getListProduct(page, limit, sortField, sortOrder);
         return ResponseEntity.ok().body(res);
     }
 
     @GetMapping(path = "/get")
-    public ResponseEntity<DataResponse<ProductResponse>> getProductById(@RequestParam String id) {
-        DataResponse<ProductResponse> res = productService.getProductById(id);
+    public ResponseEntity<DataResponse> getProductById(@RequestParam String id) {
+        DataResponse res = productService.getProductById(id);
         return ResponseEntity.ok().body(res);
     }
 

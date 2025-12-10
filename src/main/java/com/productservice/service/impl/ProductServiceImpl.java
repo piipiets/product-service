@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public DatatableResponse<ProductResponse> getListProduct(int page, int limit, String sortField, String sortOrder){
+    public DatatableResponse getListProduct(int page, int limit, String sortField, String sortOrder){
         try{
             String[] allowedOrder = {"id", "name", "price"};
 
@@ -58,13 +58,13 @@ public class ProductServiceImpl implements ProductService {
 
             Pageable pageable = PageRequest.of(page - 1, limit, sort);
             Page<Product> listProducts = productRepository.findAll(pageable);
-            PageDataResponse<ProductResponse> response = new PageDataResponse<>();
+            PageDataResponse response = new PageDataResponse();
             response.setPage(page);
             response.setLimit(limit);
             response.setTotal((int) listProducts.getTotalElements());
             response.setList(listProducts.getContent().stream().map(this::mapToProductResponse).collect(Collectors.toList()));
 
-            return new DatatableResponse<>("Success", ResponseMessage.DATA_FETCHED, new Date(), 200, response);
+            return new DatatableResponse("Success", ResponseMessage.DATA_FETCHED, new Date(), 200, response);
         } catch (Exception e){
             log.error("Error when get list of products", e);
             throw e;
@@ -81,12 +81,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public DataResponse<ProductResponse> getProductById(String id) {
+    public DataResponse getProductById(String id) {
         try{
             Product product = productRepository.findById(id)
                     .orElseThrow(() -> new NotFoundException(ResponseMessage.DATA_NOT_FOUND));
             ProductResponse res = mapToProductResponse(product);
-            return new DataResponse<>("Success", ResponseMessage.DATA_FETCHED, new Date(), 200, res);
+            return new DataResponse("Success", ResponseMessage.DATA_FETCHED, new Date(), 200, res);
         } catch(Exception e){
             log.error("Error when get product's data", e);
             throw e;
@@ -117,7 +117,7 @@ public class ProductServiceImpl implements ProductService {
             productRepository.save(product);
             return new DefaultResponse(ResponseMessage.DATA_UPDATED, 200);
         } catch(Exception e){
-            log.error("Error when updateing product", e);
+            log.error("Error when updating product", e);
             throw e;
         }
     }

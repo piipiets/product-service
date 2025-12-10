@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PageDataResponse<T> {
+public class PageDataResponse {
     int page;
     int limit;
     Integer total;

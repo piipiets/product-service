@@ -12,10 +12,10 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DatatableResponse<T> {
+public class DatatableResponse {
     String result;
     String detail;
     Date date;
     int code;
-    PageDataResponse<ProductResponse> data;
+    PageDataResponse data;
 }

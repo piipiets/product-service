@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DataResponse<T> {
+public class DataResponse {
     String result;
     String detail;
     Date date;
