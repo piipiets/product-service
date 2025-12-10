@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
             response.setTotal((int) listProducts.getTotalElements());
             response.setList(listProducts.getContent().stream().map(this::mapToProductResponse).collect(Collectors.toList()));
 
-            return new DatatableResponse<>(ResponseMessage.DATA_FETCHED, response);
+            return new DatatableResponse<>("Success", ResponseMessage.DATA_FETCHED, new Date(), 200, response);
         } catch (Exception e){
             log.error("Error when get list of products", e);
             throw e;
@@ -85,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
             Product product = productRepository.findById(id)
                     .orElseThrow(() -> new NotFoundException(ResponseMessage.DATA_NOT_FOUND));
             ProductResponse res = mapToProductResponse(product);
-            return new DataResponse<>(ResponseMessage.DATA_FETCHED, res);
+            return new DataResponse<>("Success", ResponseMessage.DATA_FETCHED, new Date(), 200, res);
         } catch(Exception e){
             log.error("Error when get product's data", e);
             throw e;
@@ -112,7 +113,6 @@ public class ProductServiceImpl implements ProductService {
         try{
             Product product = productRepository.findById(id)
                     .orElseThrow(() -> new NotFoundException(ResponseMessage.DATA_NOT_FOUND));
-
             ObjectMapperUtil.updateObject(request, product);
             productRepository.save(product);
             return new DefaultResponse(ResponseMessage.DATA_UPDATED, 200);

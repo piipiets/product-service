@@ -1,5 +1,7 @@
 package com.productservice.model.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.productservice.model.dto.ProductResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,16 +11,11 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataResponse<T> {
-    String result = "Success";
+    String result;
     String detail;
     Date date;
-    int code = 200;
-    T data;
-
-    public DataResponse(String detail, T data){
-        this.detail = detail;
-        this.date = new Date();
-        this.data = data;
-    }
+    int code;
+    ProductResponse data;
 }
