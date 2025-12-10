@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class ProductRequest {
-    @NotEmpty(message = "Name must be fiiled")
+    @NotEmpty(message = "Name must be filled")
     private String name;
 
     @NotEmpty(message = "Description must be filled")
